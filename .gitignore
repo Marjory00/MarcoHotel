@@ -17,12 +17,12 @@
 # --------------------------
 # 3. Backend (server) ignores (Node/Express)
 # --------------------------
-/server/build
-/server/.env* # Local environment variables
+/backend/build
+/backend/.env* # Local environment variables
 
 # 3. Backend (server) ignores
-/server/node_modules
-/server/build
+/backend/node_modules
+/backend/build
 
 # --------------------------
 # 4. OS/IDE ignores
