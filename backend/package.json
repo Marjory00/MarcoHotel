@@ -17,6 +17,7 @@
   "license": "ISC",
   "description": "Backend API for the MarcoHotel booking system.",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "mongoose": "^8.19.1"

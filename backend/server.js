@@ -1,8 +1,11 @@
-// server/server.js
+// MarcoHotel/backend/server.js
 const express = require('express');
 const cors = require('cors'); 
 const connectDB = require('./config/db'); // Import DB connection
-const roomRoutes = require('./routes/roomRoutes'); // Import Room routes
+
+// Import Routes
+const roomRoutes = require('./routes/rooms'); // Import Room routes
+const bookingRoutes = require('./routes/bookings'); // Import Booking routes
 
 // Execute the database connection function
 connectDB(); 
@@ -17,6 +20,9 @@ app.use(express.json());
 // --- API Routes ---
 // When a request comes to /api/rooms, use the roomRoutes handler
 app.use('/api/rooms', roomRoutes); 
+
+// When a request comes to /api/bookings, use the bookingRoutes handler
+app.use('/api/bookings', bookingRoutes); 
 
 // Basic server test route
 app.get('/', (req, res) => {
