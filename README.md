@@ -15,7 +15,7 @@
 5.  [Folder Structure](#folder-structure)
 6.  [For Potential Customers](#for-potential-customers)
 7.  [Application Screenshots](#application-screenshots)
-8.  [License](#license)
+
 
 ---
 
@@ -116,4 +116,4 @@ If you are evaluating this project for your business or personal use, here are t
 * **Rooms Listing:** 
 * **Booking Placeholder:** 
 
----S
+---
