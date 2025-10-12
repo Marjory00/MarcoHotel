@@ -13,12 +13,16 @@
 /client/dist          # Vite build output
 /client/temp
 /client/.env* # Local environment variables
+/client/src/Home.jsx
+/client/src/App.jsx
 
 # --------------------------
 # 3. Backend (server) ignores (Node/Express)
 # --------------------------
 /backend/build
 /backend/.env* # Local environment variables
+
+/backend/models/User.js
 
 # 3. Backend (server) ignores
 /backend/node_modules
