@@ -1,33 +1,33 @@
 // client/src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Rooms from './pages/Rooms';
-import Booking from './pages/Booking';
-import Footer from './components/Footer';
+// Ensure all imports are correct and point to existing files
+import Navbar from './components/Navbar.jsx';   // Added .jsx for consistency
+import Home from './pages/Home.jsx'; 
+import Rooms from './pages/Rooms.jsx'; 
+import Booking from './pages/Booking.jsx'; 
+import Footer from './components/Footer.jsx'; 
 
-// Main application component
 function App() {
   return (
-    // Router is needed for navigation across different pages
+    // Top-level Router component
     <Router>
-      {/* Navbar will appear on all pages */}
       <Navbar />
       
-      {/* Container to center content and add some padding */}
-      <div className="container mt-4">
+      {/* Container holding the main content. paddingBottom prevents fixed footer overlap. */}
+      <div className="container mt-4" style={{ paddingBottom: '70px' }}>
         <Routes>
-          {/* Route for the home page */}
+          {/* Main landing page */}
           <Route path="/" element={<Home />} />
-          {/* Route for the rooms listing page */}
+          {/* List of rooms page */}
           <Route path="/rooms" element={<Rooms />} />
-          {/* Route for the booking page (e.g., /booking/room-id) */}
+          {/* Detailed booking page, expects a room ID in the URL */}
           <Route path="/booking/:roomId" element={<Booking />} />
+          {/* Fallback route for any path not matched above */}
+          <Route path="*" element={<Home />} /> 
         </Routes>
       </div>
       
-      {/* Footer will appear on all pages */}
       <Footer />
     </Router>
   );
