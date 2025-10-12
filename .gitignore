@@ -1,0 +1,27 @@
+# MarcoHotel/.gitignore
+
+# --------------------------
+# 1. NODE / NPM ignores (applies to both client and server)
+# --------------------------
+/node_modules
+/npm-debug.log
+.DS_Store
+
+# --------------------------
+# 2. Frontend (client) ignores (React/Vite)
+# --------------------------
+/client/dist          # Vite build output
+/client/temp
+/client/.env* # Local environment variables
+
+# --------------------------
+# 3. Backend (server) ignores (Node/Express)
+# --------------------------
+/server/build         # If you add a build process later
+/server/.env* # Local environment variables
+
+# --------------------------
+# 4. OS/IDE ignores
+# --------------------------
+.vscode/
+Thumbs.db
