@@ -6,7 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 // Import Components
 import PromotionalBanner from '../components/PromotionalBanner'; 
 import RoomCard from '../components/RoomCard'; 
-import ReviewCard from '../components/ReviewCard'; // 🌟 NEW: Import the ReviewCard component
+import ReviewCard from '../components/ReviewCard';
+// NOTE: MapLocation import REMOVED here
  
 // Import Icons (Requires: npm install react-icons)
 import { GiHotMeal, GiPillow, GiWaterfall } from 'react-icons/gi';
@@ -19,7 +20,7 @@ import heroImage from '../assets/welcome-cottage.jpg';
 import aboutImage from '../assets/umbrella-pool.jpg'; 
 import diningImage from '../assets/private-spaces.jpg'; 
 
-// 🌟 NEW: Dummy data for the Review Cards section
+// 🌟 Dummy data for the Review Cards section
 const dummyReviews = [
     { id: 1, reviewerName: "A. Johnson", date: "2025-09-15", rating: 5.0, comment: "Absolutely stunning! The staff and amenities were top-tier. Pure luxury and pure relaxation." },
     { id: 2, reviewerName: "B. Smith", date: "2025-09-20", rating: 4.5, comment: "A serene escape. Minor issue with the Wi-Fi in the cafe, but overall excellent service and beautiful views." },
@@ -196,7 +197,6 @@ const Home = () => {
                             <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <FaCocktail className="display-4 text-warning mb-3" />
                                 <h5 className="fw-bold">Beachfront Bar</h5>
-                                <p>Enjoy fresh, hand-crafted cocktails right on the sand with a perfect sunset view.</p>
                             </div>
                         </div>
                         {/* Amenity 3: Spa & Wellness */}
@@ -204,7 +204,6 @@ const Home = () => {
                             <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <FaSpa className="display-4 text-danger mb-3" />
                                 <h5 className="fw-bold">Spa & Wellness</h5>
-                                <p>Relax and rejuvenate with our signature massage and holistic treatment packages.</p>
                             </div>
                         </div>
                         {/* Amenity 4: Gourmet Dining */}
@@ -212,23 +211,20 @@ const Home = () => {
                             <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <GiHotMeal className="display-4 text-success mb-3" />
                                 <h5 className="fw-bold">Gourmet Dining</h5>
-                                <p>Savor Michelin-star inspired cuisine at our main restaurant with stunning views.</p>
                             </div>
                         </div>
-                        {/* Amenity 5: Pillow Service (FIXED: Added text content) */}
+                        {/* Amenity 5: Premium Bedding */}
                         <div className="col">
                             <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <GiPillow className="display-4 text-primary mb-3" />
                                 <h5 className="fw-bold">Premium Bedding</h5>
-                                <p>Experience ultimate comfort with our plush pillow menu and high-thread-count linens.</p>
                             </div>
                         </div>
-                        {/* Amenity 6: Free Wi-Fi (FIXED: Added text content) */}
+                        {/* Amenity 6: Free Wi-Fi */}
                         <div className="col">
                             <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <FaWifi className="display-4 text-info mb-3" /> 
                                 <h5 className="fw-bold">Free High-Speed Wi-Fi</h5>
-                                <p>Stay connected with blazing-fast internet available throughout the entire resort.</p>
                             </div>
                         </div>
                     </div>
@@ -279,7 +275,10 @@ const Home = () => {
                 </div>
             </section>
             
-            {/* 7. FINAL CALL TO ACTION SECTION */}
+            {/* NOTE: Removed section 7 (MapLocation) */}
+            <hr className="container" />
+            
+            {/* 8. FINAL CALL TO ACTION SECTION */}
             <section className="py-5 text-center">
                 <div className="container">
                     <h2 className="display-5 mb-3">Ready for Paradise?</h2>
