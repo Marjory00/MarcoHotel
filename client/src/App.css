@@ -6,13 +6,15 @@
 
 :root {
     /* Colors */
-    --tropical-primary: #00796b; /* Dark Teal/Green */
+    /* *** CHANGE: Set tropical-primary to Deep Blue (#1a4d80) *** */
+    --tropical-primary: #1a4d80; /* Deep Blue - Used for primary buttons & titles */
     --tropical-secondary: #ffb300; /* Amber/Gold */
-    --tropical-light: #e0f2f1; /* Light mint/aqua */
+    /* *** USER REQUEST: Changed tropical-light from #e0f2f1 to #f5f7f9 *** */
+    --tropical-light: #f5f7f9; /* Very Light Gray/Off-White */
     --tropical-dark: #37474f; /* Dark Slate */
     
     /* NEW: Promotional Banner Colors (Used for contrast/call-to-action) */
-    --promo-background: #1a4d80; /* Deep Blue - Elegant Hotel Color */
+    --promo-background: #1a4d80; /* Deep Blue - Elegant Hotel Color (Matching new primary) */
     --promo-highlight: #ff6347; /* Tomato Red - Bright, attractive discount color */
 
     /* Fonts (Loaded via index.html) */
@@ -41,6 +43,7 @@ html, body {
 body {
     font-family: var(--font-sans);
     font-weight: 400;
+    /* This will now use the new #f5f7f9 color */
     background-color: var(--tropical-light); 
 }
 
@@ -89,6 +92,7 @@ h1, h2, h3, h4 {
 
 .footer {
     background-color: var(--tropical-dark);
+    /* This will now use the new #f5f7f9 color for footer text */
     color: var(--tropical-light);
     padding: 30px 0;
 }
@@ -197,6 +201,7 @@ h1, h2, h3, h4 {
 
 /* Button Overrides */
 .btn-primary {
+    /* Updated button color to new primary variable */
     background-color: var(--tropical-primary) !important;
     border-color: var(--tropical-primary) !important;
     font-weight: 500;
@@ -217,7 +222,6 @@ h1, h2, h3, h4 {
     ------------------------------------------------------------------ */
 
 /* Button Color Mapping for Chat Component */
-/* Note: The floating button uses tropical-secondary for high contrast, handled in Section 7 */
 .btn-tropical-primary {
     background-color: var(--tropical-primary);
     border-color: var(--tropical-primary);
@@ -225,8 +229,9 @@ h1, h2, h3, h4 {
     font-weight: 500;
 }
 .btn-tropical-primary:hover {
-    background-color: #004d40; /* Slightly darker shade of primary on hover */
-    border-color: #004d40;
+    /* Updated hover color to a slightly darker shade of new primary */
+    background-color: #12375e; 
+    border-color: #12375e;
 }
 
 /* Chat Bubble Backgrounds */
@@ -234,7 +239,7 @@ h1, h2, h3, h4 {
     background-color: var(--tropical-dark) !important;
 }
 .bg-tropical-primary {
-    /* Use the primary color for the user's message bubbles */
+    /* Use the primary color for the user's message bubbles (now blue) */
     background-color: var(--tropical-primary) !important;
     color: white !important;
 }
@@ -456,4 +461,70 @@ h1, h2, h3, h4 {
 .banner-button:hover {
     background-color: #e05c3d; /* Slightly darker hover state */
     border-color: #e05c3d;
+}
+
+/* ------------------------------------------------------------------
+    9. AUTHENTICATION FORMS (Login & Register) 🔐
+    ------------------------------------------------------------------ */
+
+/* Container that centers the form and gives it a max-width */
+.auth-form-container {
+    max-width: 500px; /* Standard width for a central form */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 30px;
+    background-color: #ffffff; /* White background for the form card */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* The subtle border color will now use the new #f5f7f9 color */
+    border: 1px solid var(--tropical-light); 
+}
+
+.auth-form-container h2 {
+    font-size: 2.2rem;
+    /* Changed title color to new primary variable (Deep Blue) */
+    color: var(--tropical-primary); 
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Styling for form controls */
+.auth-form-container .form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-form-container .form-control:focus {
+    border-color: var(--tropical-secondary);
+    box-shadow: 0 0 0 0.25rem rgba(255, 179, 0, 0.25); /* Yellow/Amber focus ring */
+}
+
+/* Spacing between form groups */
+.auth-form-container .form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Submit button specific style (uses btn-primary override from section 5) */
+.auth-form-container .btn-primary {
+    width: 100%; /* Full width button */
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 10px; /* Space above the button */
+}
+
+/* Link for switching between login/register */
+.auth-form-container .auth-switch-link {
+    /* Changed link color to new primary variable (Deep Blue) */
+    color: var(--tropical-primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.auth-form-container .auth-switch-link:hover {
+    color: var(--tropical-dark);
+    text-decoration: underline;
 }

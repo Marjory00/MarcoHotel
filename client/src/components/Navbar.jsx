@@ -1,4 +1,3 @@
-// client/src/components/Navbar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo/MC-icon.png'; 
@@ -6,14 +5,13 @@ import { BiUserCircle } from 'react-icons/bi';
 
 const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg sticky-top shadow-sm"> 
+        <nav className="navbar navbar-expand-lg sticky-top shadow-sm bg-light"> {/* Added bg-light for clarity */}
             <div className="container">
                 <Link className="navbar-brand fw-bold" to="/">
                     <img 
                         src={logo} 
                         alt="MarcoHotel Logo" 
-                        // FIX: Remove the hardcoded height attribute.
-                        // The size is now controlled by the 45px height in App.css via the class:
+                        // The size is controlled by the 45px height via the class (Good design choice!)
                         className="navbar-logo-img d-inline-block align-text-top me-2" 
                     />
                     MarcoHotel
@@ -32,6 +30,7 @@ const Navbar = () => {
                 </button>
                 
                 <div className="collapse navbar-collapse" id="navbarNav">
+                    {/* Main Navigation Links */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             <Link className="nav-link" to="/">Home</Link>
@@ -50,11 +49,11 @@ const Navbar = () => {
                         </li>
                     </ul>
                     
-                    {/* Login/User account link */}
+                    {/* Authentication Link */}
                     <div className="d-flex ms-lg-auto">
                         <Link 
                             className="btn btn-warning text-dark fw-bold shadow-sm" 
-                            to="/login"
+                            to="/login" // CORRECTLY routes to the Login page first
                         >
                             <BiUserCircle className="me-1" size={20} /> Login / Register
                         </Link>
