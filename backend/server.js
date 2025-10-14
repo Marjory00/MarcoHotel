@@ -1,18 +1,19 @@
 // MarcoHotel/backend/server.js
-const express = require('express');
-const cors = require('cors'); 
-const connectDB = require('./config/db'); // Import DB connection
+
+import express from 'express';
+import cors from 'cors'; 
+// import connectDB from './config/db.js'; // <-- TEMPORARILY COMMENTED OUT
 
 // ------------------------------------------------------------------
-// --- Import Routes ---
+// --- Import Routes (MUST use .js extension with ES Modules) ---
 // ------------------------------------------------------------------
-const roomRoutes = require('./routes/rooms');           // Import Room routes
-const reservationRoutes = require('./routes/reservationRoutes'); // FIX: Import the new Reservation routes
-const authRoutes = require('./routes/auth');            // Import Authentication routes
+import roomRoutes from './routes/rooms.js'; // Import Room routes
+import reservationRoutes from './routes/reservationRoutes.js'; // Import the new Reservation routes
+import authRoutes from './routes/auth.js'; // Import Authentication routes
 
 
 // Execute the database connection function
-connectDB(); 
+// connectDB(); // <-- TEMPORARILY COMMENTED OUT as we are using mock data
 
 const app = express();
 const PORT = 5000; 
@@ -25,7 +26,7 @@ app.use(express.json());
 // --- API Routes ---
 // ------------------------------------------------------------------
 
-// Room Routes
+// Room Routes (Uses mock data from ./routes/rooms.js)
 app.use('/api/rooms', roomRoutes); 
 
 // Reservation Routes (Client bookings and Management schedule)
@@ -36,10 +37,10 @@ app.use('/api/auth', authRoutes);
 
 // Basic server test route
 app.get('/', (req, res) => {
-    res.json({ message: 'MarcoHotel Backend is running!' });
+    res.json({ message: 'MarcoHotel Backend is running!' });
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+    console.log(`Server listening on port ${PORT}`);
 });

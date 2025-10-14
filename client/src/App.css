@@ -11,6 +11,10 @@
     --tropical-light: #e0f2f1; /* Light mint/aqua */
     --tropical-dark: #37474f; /* Dark Slate */
     
+    /* NEW: Promotional Banner Colors (Used for contrast/call-to-action) */
+    --promo-background: #1a4d80; /* Deep Blue - Elegant Hotel Color */
+    --promo-highlight: #ff6347; /* Tomato Red - Bright, attractive discount color */
+
     /* Fonts (Loaded via index.html) */
     --font-serif: 'Playfair Display', serif; 
     --font-sans: 'Roboto', sans-serif;
@@ -372,4 +376,84 @@ h1, h2, h3, h4 {
 .featured-questions-box .btn-outline-secondary:hover {
     background-color: var(--tropical-primary);
     color: white;
+}
+
+
+/* ------------------------------------------------------------------
+    8. PROMOTIONAL BANNER (MarcoHotel Specials) 📢
+    ------------------------------------------------------------------ */
+
+/* Container for the entire banner component */
+.promotional-banner {
+    /* Using a deep, elegant blue for the background */
+    background-color: var(--promo-background); 
+    color: white;
+    padding: 30px 40px;
+    text-align: center;
+    margin: 30px auto; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    max-width: 1100px; 
+}
+
+/* Inner content alignment */
+.banner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* The "LIMITED TIME OFFER!" tag */
+.banner-tag {
+    display: inline-block;
+    background-color: var(--tropical-secondary); /* Gold/Amber for a premium highlight */
+    color: var(--tropical-dark);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* The main promotion headline */
+.banner-title {
+    font-size: 2.5em;
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.1;
+    color: white; /* Ensure headline color contrasts with dark background */
+}
+
+/* The descriptive text */
+.banner-detail {
+    font-size: 1.15em;
+    margin: 10px 0 25px 0;
+}
+
+/* Highlight for the discount percentage */
+.discount {
+    color: var(--promo-highlight); /* Tomato Red for attractive savings */
+    font-size: 1.1em;
+    font-weight: 900;
+}
+
+/* The call-to-action button */
+.banner-button {
+    background-color: var(--promo-highlight); 
+    color: white;
+    border: 2px solid var(--promo-highlight); 
+    padding: 12px 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.banner-button:hover {
+    background-color: #e05c3d; /* Slightly darker hover state */
+    border-color: #e05c3d;
 }
