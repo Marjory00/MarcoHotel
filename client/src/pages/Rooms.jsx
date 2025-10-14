@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { BiGroup, BiExpandAlt, BiDollarCircle } from 'react-icons/bi';
+// Importing additional icons for features
+import { BiGroup, BiExpandAlt, BiDollarCircle, BiWifi, BiWater, BiCookie, BiCar, BiInfoCircle } from 'react-icons/bi';
 
 // NOTE: Based on your saved information, the server folder is now the backend folder.
+// Using the specified API URL for the rooms endpoint.
 const API_URL = 'http://localhost:5000/api/rooms/'; 
 
 // --- MOCK DATA FALLBACK (Used if API fails) ---
@@ -14,9 +16,15 @@ const MOCK_ROOMS = [
         price: 250,
         maxGuests: 2,
         size: 350,
-        imageUrl: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?fit=crop&w=600&h=400',
-        description: 'A cozy studio with breathtaking views of the ocean. Perfect for couples. This description is intentionally a bit long to test the text trimming logic implemented below.',
-        features: ['Balcony', 'King Bed', 'Free Wi-Fi'],
+        // ➡️ NEW, STABLE IMAGE URL: Using Unsplash images directly with a fixed ID
+        imageUrl: 'https://images.unsplash.com/photo-1540196884845-d8677c77f0a8?w=600&h=400&fit=crop', // Cozy hotel room
+        description: 'A cozy studio with breathtaking views of the ocean. Perfect for couples. Enjoy the sunrise from your comfortable king-size bed.',
+        // ➡️ MORE FEATURES ADDED
+        features: [
+            { icon: BiWifi, text: 'High-Speed Wi-Fi' },
+            { icon: BiWater, text: 'Rainfall Shower' },
+            { icon: BiGroup, text: 'Max Guests: 2' }
+        ],
     },
     {
         _id: 'R205',
@@ -24,9 +32,16 @@ const MOCK_ROOMS = [
         price: 450,
         maxGuests: 4,
         size: 700,
-        imageUrl: 'https://images.unsplash.com/photo-1541489445903-0c4d7b1a64f3?fit=crop&w=600&h=400',
-        description: 'Spacious suite featuring a private furnished patio and two queen beds.',
-        features: ['Patio', 'Mini-Bar', 'A/C'],
+        // ➡️ NEW, STABLE IMAGE URL: Using Unsplash images directly with a fixed ID
+        imageUrl: 'https://images.unsplash.com/photo-1563299797-2003c273e913?w=600&h=400&fit=crop', // Deluxe suite interior
+        description: 'Spacious suite featuring a private furnished patio and two queen beds. Ideal for small families or groups seeking relaxation.',
+        // ➡️ MORE FEATURES ADDED
+        features: [
+            { icon: BiCookie, text: 'Complimentary Snacks' },
+            { icon: BiExpandAlt, text: '700 sq.ft.' },
+            { icon: BiWater, text: 'Pool Access' },
+            { icon: BiGroup, text: 'Max Guests: 4' }
+        ],
     },
     {
         _id: 'R302',
@@ -34,13 +49,31 @@ const MOCK_ROOMS = [
         price: 990,
         maxGuests: 8,
         size: 1500,
-        imageUrl: 'https://images.unsplash.com/photo-1505691938895-1ce6cf85e7a9?fit=crop&w=600&h=400',
-        description: 'The ultimate luxury experience with multiple rooms, private plunge pool, and butler service.',
-        features: ['Private Pool', 'Butler', 'Beach Access'],
+        // ➡️ NEW, STABLE IMAGE URL: Using Unsplash images directly with a fixed ID
+        imageUrl: 'https://images.unsplash.com/photo-1579758774797-4d7a18774e1d?w=600&h=400&fit=crop', // Poolside villa
+        description: 'The ultimate luxury experience with multiple rooms, a private plunge pool, and personalized butler service.',
+        // ➡️ MORE FEATURES ADDED
+        features: [
+            { icon: BiWater, text: 'Private Plunge Pool' },
+            { icon: BiCar, text: 'Valet Parking Included' },
+            { icon: BiGroup, text: 'Max Guests: 8' },
+            { icon: BiDollarCircle, text: 'Butler Service' }
+        ],
     },
 ];
 // ----------------------------------------------
 
+// Component to render a feature item
+const FeatureBadge = ({ feature }) => {
+    // Determine which icon to use, defaulting to BiExpandAlt if not specified
+    const Icon = feature.icon || BiExpandAlt; 
+    return (
+        <span className="badge text-dark me-2 mb-1 p-2 small fw-normal" style={{ backgroundColor: '#ffdd77' }}>
+            <Icon className="me-1" style={{ position: 'relative', top: '2px' }}/>
+            {feature.text}
+        </span>
+    );
+}
 
 const Rooms = () => {
     const [rooms, setRooms] = useState([]);
@@ -52,16 +85,15 @@ const Rooms = () => {
     useEffect(() => {
         const fetchRooms = async () => {
             try {
+                // Fetch data from your backend
                 const response = await axios.get(API_URL);
                 
-                // Safely extract data, handling nested API responses or direct array responses
                 const fetchedRooms = (response.data && response.data.data) || response.data;
                 
-                // Ensure what we set is an array, defaulting to an empty array if not
                 if (Array.isArray(fetchedRooms)) {
                     setRooms(fetchedRooms);
+                    setError(null); 
                 } else {
-                    // Fallback if API returns an unexpected format but doesn't throw a full error
                     console.error('API response data is not an array:', fetchedRooms);
                     throw new Error('Unexpected API response format.'); 
                 }
@@ -70,8 +102,7 @@ const Rooms = () => {
             } catch (err) {
                 console.error('Error fetching rooms (falling back to mock data):', err);
                 
-                // Fallback to MOCK DATA if API connection fails or format is wrong
-                setError('Failed to load rooms from the server. Displaying limited mock data.');
+                setError('Failed to load rooms from the server. Displaying limited mock data. (Check if your backend is running!)');
                 setRooms(MOCK_ROOMS); 
                 setLoading(false);
             }
@@ -92,9 +123,28 @@ const Rooms = () => {
     }
     
     return (
-        <div className="my-5">
+        <div className="rooms-page">
+            
+            {/* 🆕 SECTION 1: HERO BANNER */}
+            <div className="jumbotron jumbotron-fluid text-white text-center py-5 mb-5" 
+                 // ➡️ Updated Hero Image URL to a fixed, stable Unsplash image
+                 style={{ 
+                     backgroundImage: 'url(https://images.unsplash.com/photo-1540196884845-d8677c77f0a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&h=400&q=80)', 
+                     backgroundSize: 'cover', 
+                     backgroundPosition: 'center',
+                     minHeight: '300px'
+                 }}>
+                <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', padding: '20px', borderRadius: '8px' }}>
+                    <h1 className="display-3 fw-bold mb-3">Your Tropical Escape Awaits</h1>
+                    <p className="lead fs-5">Find the perfect room to start your dream vacation at MarcoHotel.</p>
+                </div>
+            </div>
+            {/* --- END HERO BANNER --- */}
+
+
             <div className="container"> 
-                <h1 className="display-4 text-center mb-5 text-tropical-dark">Our Tropical Collection</h1>
+                {/* ➡️ ORIGINAL ROOMS LISTING HEADER */}
+                <h2 className="display-4 text-center mb-5 text-tropical-dark">Our Tropical Collection</h2>
                 
                 {/* Display error message if mock data is being used due to API failure */}
                 {error && (
@@ -108,18 +158,21 @@ const Rooms = () => {
                         {rooms.map(room => (
                             <div key={room._id} className="col-sm-12 col-md-6 col-lg-4 mb-4 d-flex">
                                 <div className="card shadow-lg tropical-card w-100 d-flex flex-column">
+                                    {/* 📸 Image from URL (from API or Mock Data) */}
                                     <img 
-                                        src={room.imageUrl || 'https://via.placeholder.com/600x400?text=Tropical+Room'} 
+                                        src={room.imageUrl || 'https://placehold.it/600x400?text=Image+Not+Available'} 
                                         className="card-img-top" 
                                         alt={room.name} 
                                         style={{ height: '220px', objectFit: 'cover' }} 
+                                        // The 'crossOrigin' attribute is often unnecessary for static image URLs
+                                        // and can sometimes cause issues, so we'll remove it for maximum compatibility.
+                                        // crossOrigin="anonymous" 
                                     />
                                     <div className="card-body d-flex flex-column">
                                         <h5 className="card-title fw-bold text-tropical-primary mb-2">{room.name}</h5>
                                         
-                                        {/* Room Specs */}
-                                        <div className="text-muted small mb-3">
-                                            <span className="me-3"><BiGroup className="me-1" /> Max Guests: **{room.maxGuests}**</span>
+                                        {/* Room Specs (Size) */}
+                                        <div className="text-muted small mb-3 border-bottom pb-2">
                                             <span className="me-3"><BiExpandAlt className="me-1" /> Size: **{room.size}** sq.ft.</span>
                                         </div>
                                         
@@ -130,12 +183,10 @@ const Rooms = () => {
                                                 : room.description || 'No description provided.'}
                                         </p>
                                         
-                                        {/* Features - Optional badges */}
-                                        <div className="mb-3">
-                                            {Array.isArray(room.features) && room.features.slice(0, 2).map((feature, index) => (
-                                                <span key={index} className="badge text-dark me-2" style={{ backgroundColor: '#ffdd77' }}>
-                                                    {feature}
-                                                </span>
+                                        {/* 🚀 ENHANCED FEATURES DISPLAY */}
+                                        <div className="mb-3 d-flex flex-wrap">
+                                            {Array.isArray(room.features) && room.features.slice(0, 4).map((feature, index) => (
+                                                <FeatureBadge key={index} feature={feature} />
                                             ))}
                                         </div>
 
@@ -144,6 +195,7 @@ const Rooms = () => {
                                             <BiDollarCircle className="me-1 text-success" /> **${room.price}** <small className="text-muted fs-6">/ night</small>
                                         </p>
                                         
+                                        {/* Link to detail/booking page */}
                                         <Link to={`/booking/${room._id}`} className="btn btn-warning btn-lg w-100 text-dark fw-bold">
                                             View & Reserve
                                         </Link>
@@ -154,6 +206,25 @@ const Rooms = () => {
                     </div>
                 )}
             </div>
+
+            {/* 🆕 SECTION 2: EXPLORE MORE / CTA */}
+            <div className="container mt-5 pt-5 pb-5">
+                <div className="p-4 text-center" style={{ backgroundColor: '#f0f8ff', borderRadius: '10px' }}>
+                    <BiInfoCircle size={40} className="text-tropical-primary mb-3" />
+                    <h3 className="mb-3 text-tropical-dark">Need Help Choosing?</h3>
+                    <p className="lead mb-4 text-secondary">
+                        Contact our concierge service for personalized recommendations or check out our full amenities list.
+                    </p>
+                    <Link to="/contact" className="btn btn-outline-primary me-3 fw-bold">
+                        Contact Us
+                    </Link>
+                    <Link to="/amenities" className="btn btn-outline-secondary fw-bold">
+                        View Hotel Amenities
+                    </Link>
+                </div>
+            </div>
+            {/* --- END EXPLORE MORE SECTION --- */}
+
         </div>
     );
 };
