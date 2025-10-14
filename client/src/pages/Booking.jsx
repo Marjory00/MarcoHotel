@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { BiGroup, BiExpandAlt, BiCalendarCheck, BiCreditCard, BiCheckCircle } from 'react-icons/bi';
+import { BiGroup, BiExpandAlt, BiCreditCard, BiCheckCircle } from 'react-icons/bi';
 
 // --- MOCK DATA FALLBACK (Must match data structure in Rooms.jsx) ---
 const MOCK_ROOMS = [
@@ -39,49 +39,72 @@ const MOCK_ROOMS = [
 
 
 const Booking = () => {
-    // Get the room ID from the URL path, as defined in App.jsx route
     const { roomId } = useParams(); 
     
-    // State for form inputs
+    // State for form inputs, initialized with empty strings
     const [checkInDate, setCheckInDate] = useState('');
     const [checkOutDate, setCheckOutDate] = useState('');
     const [guests, setGuests] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    // Find the room using the ID from the mock data (placeholder for API call)
+    // Find the room using the ID from the mock data
     const room = MOCK_ROOMS.find(r => r._id === roomId);
+    // Get today's date for input validation minimum
+    const todayDate = new Date().toISOString().split('T')[0];
 
-    useEffect(() => {
-        // In a real app, you'd fetch the room data here using axios.get('/api/rooms/' + roomId)
-        // We simulate loading to find the room from mock data.
-        if (room) {
-            setLoading(false);
-        } else {
-            // Simulate 404/not found state
-            setLoading(false);
-        }
-    }, [roomId, room]);
-
-
-    // --- Price Calculation Mock ---
+    // --- REAL-TIME PRICE CALCULATION FUNCTION ---
     const calculateTotal = () => {
-        // Simple mock calculation: assumes 3 nights for presentation
         const pricePerNight = room ? room.price : 0;
-        const nights = 3; // Placeholder for date difference calculation
+        let nights = 0;
+
+        if (checkInDate && checkOutDate) {
+            const checkIn = new Date(checkInDate);
+            const checkOut = new Date(checkOutDate);
+            
+            // Calculate nights only if check-out is after check-in
+            if (checkOut > checkIn) {
+                // To avoid time zone issues, reset time to midnight for accurate day difference
+                const oneDay = 1000 * 60 * 60 * 24;
+                const diffTime = checkOut.getTime() - checkIn.getTime();
+                nights = Math.round(diffTime / oneDay);
+            }
+        }
+
         const subtotal = pricePerNight * nights;
-        const tax = subtotal * 0.10; // 10% mock tax
+        const taxRate = 0.10; // 10% mock tax
+        const tax = subtotal * taxRate;
+        
         return { subtotal, tax, total: subtotal + tax, nights };
     };
 
+    // Calculate totals based on current state
     const { subtotal, tax, total, nights } = calculateTotal();
-    // -----------------------------
+    // ---------------------------------------------
+
+    // Simulate loading and handle the room finding
+    useEffect(() => {
+        if (room) {
+            setLoading(false);
+        } else {
+            setLoading(false);
+        }
+        // Optionally set a default Check-In date for better UX
+        // setCheckInDate(todayDate); 
+    }, [roomId, room, todayDate]);
 
 
     const handleBooking = (e) => {
         e.preventDefault();
+        
+        // Final validation before mock submission
+        if (nights <= 0) {
+             alert('Please select valid Check-In and Check-Out dates (Check-Out must be after Check-In).');
+             return;
+        }
+
         // Placeholder for sending booking data to backend
-        alert(`Booking requested for ${room.name} (${nights} nights) at $${total.toFixed(2)}.`);
-        console.log({ checkInDate, checkOutDate, guests, total });
+        alert(`MOCK SUCCESS: Booking requested for ${room.name} for ${nights} nights at $${total.toFixed(2)}.`);
+        console.log({ checkInDate, checkOutDate, guests, total, roomName: room.name });
     };
 
     if (loading) {
@@ -89,7 +112,7 @@ const Booking = () => {
     }
 
     if (!room) {
-        return <div className="text-center py-5"><h1 className="display-5">Room Not Found 😔</h1><p className="lead">The requested room ID ({roomId}) does not exist.</p><Link to="/rooms" className="btn btn-primary mt-3">Browse All Rooms</Link></div>;
+        return <div className="text-center py-5"><h1 className="display-5">Room Not Found 😔</h1><p className="lead">The requested room ID (**{roomId}**) does not exist.</p><Link to="/rooms" className="btn btn-primary mt-3">Browse All Rooms</Link></div>;
     }
 
 
@@ -152,7 +175,9 @@ const Booking = () => {
                                         className="form-control" 
                                         id="checkIn" 
                                         onChange={(e) => setCheckInDate(e.target.value)} 
+                                        value={checkInDate} 
                                         required 
+                                        min={todayDate}
                                     />
                                 </div>
                                 <div className="col-md-6">
@@ -162,7 +187,10 @@ const Booking = () => {
                                         className="form-control" 
                                         id="checkOut" 
                                         onChange={(e) => setCheckOutDate(e.target.value)} 
+                                        value={checkOutDate} 
                                         required 
+                                        // Min date for check-out is the check-in date or today, whichever is later
+                                        min={checkInDate || todayDate} 
                                     />
                                 </div>
                             </div>
@@ -180,14 +208,21 @@ const Booking = () => {
                                     onChange={(e) => setGuests(e.target.value)} 
                                     required 
                                 />
-                                <div className="form-text">Max occupancy for this room is {room.maxGuests} guests.</div>
+                                <div className="form-text">Max occupancy for this room is **{room.maxGuests}** guests.</div>
                             </div>
                             
-                            {/* Pricing Summary Mockup */}
+                            {/* Pricing Summary */}
                             <div className="p-3 bg-tropical-light rounded mb-4">
-                                <h4 className="border-bottom pb-2 mb-3">Price Breakdown ({nights} Nights)</h4>
+                                <h4 className="border-bottom pb-2 mb-3">Price Breakdown ({nights} {nights === 1 ? 'Night' : 'Nights'})</h4>
+                                
+                                {nights <= 0 && checkInDate && checkOutDate ? (
+                                    <div className="alert alert-danger p-2 small">
+                                        **Error:** Check-out must be at least one day after check-in.
+                                    </div>
+                                ) : null}
+
                                 <div className="d-flex justify-content-between">
-                                    <span>{room.name} ({nights} x ${room.price})</span>
+                                    <span>{room.name} ({nights} x ${room.price.toFixed(2)})</span>
                                     <span>${subtotal.toFixed(2)}</span>
                                 </div>
                                 <div className="d-flex justify-content-between">
@@ -203,7 +238,12 @@ const Booking = () => {
 
                             {/* Booking Button */}
                             <div className="d-grid gap-2">
-                                <button type="submit" className="btn btn-success btn-lg fw-bold">
+                                <button 
+                                    type="submit" 
+                                    className="btn btn-success btn-lg fw-bold"
+                                    // Disable if dates are not valid or the total is zero
+                                    disabled={nights <= 0 || total === 0}
+                                >
                                     <BiCreditCard className="me-2" /> Confirm & Pay Now
                                 </button>
                                 <small className="text-center text-muted">A 50% deposit is required to secure your booking.</small>
