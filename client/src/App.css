@@ -199,6 +199,24 @@ h1, h2, h3, h4 {
     border-top-right-radius: calc(15px - 1px);
 }
 
+/* *** FIX: Ensure images inside all cards fill their space correctly *** */
+/* Fixes narrow accommodation card images and ensures amenity icons/images scale */
+.card-img-fluid {
+    width: 100%;
+    height: 100%; /* Important for equal height in amenity sections */
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    display: block;
+}
+
+/* FIX: Specific style for amenity cards to ensure content alignment and spacing */
+.amenity-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem; /* Good padding for better spacing */
+}
+
 /* Button Overrides */
 .btn-primary {
     /* Updated button color to new primary variable */

@@ -1,49 +1,86 @@
+// MarcoHotel/client/src/components/RoomCard.jsx
+
 import React from 'react';
+import { Link } from 'react-router-dom';
+// FIX: Added BiCalendarCheck which was missing and causing a fatal error (blank page).
+// Added BiBed for a useful guest detail display.
+import { BiDollarCircle, BiUser, BiBed, BiCalendarCheck } from 'react-icons/bi'; 
 
-// NOTE: No need to import a separate CSS file since we put all styles in App.css
-
-/**
- * A reusable component to display details for a single room type.
- * @param {object} props
- * @param {string} props.name - Name of the room (e.g., Deluxe King)
- * @param {string} props.description - Short summary of the room
- * @param {string} props.imageUrl - URL for the room's main image
- * @param {number} props.price - Starting nightly price
- * @param {number} props.maxGuests - Maximum number of guests
- */
+// Destructure props: name, description, imageUrl, price, maxGuests
 const RoomCard = ({ name, description, imageUrl, price, maxGuests }) => {
-  return (
-    <div className="col-lg-4 col-md-6 mb-4">
-      {/* Uses the custom tropical-card class defined in App.css */}
-      <div className="card tropical-card h-100">
-        <img 
-          className="card-img-top" 
-          src={imageUrl} 
-          alt={`Image of the ${name}`} 
-          // You can set a fixed height for consistency if needed
-          style={{ height: '250px', objectFit: 'cover' }}
-        />
-        <div className="card-body">
-          <h3 className="card-title">{name}</h3>
-          <p className="card-text">{description}</p>
+    // Determine the type of room for a simple badge
+    const roomType = name.includes('Suite') || name.includes('Penthouse') ? 'Luxury' : 'Standard';
+    
+    // Simple logic to guess number of beds based on maxGuests
+    const bedCount = maxGuests >= 4 ? 2 : 1; 
+
+    return (
+        // Apply custom styling for hover effect and standard Bootstrap card structure
+        <div className="card h-100 tropical-card shadow-sm">
+            
+            {/* 1. Card Image (Fixed with card-img-fluid from App.css to ensure scaling) */}
+            <div style={{ height: '200px', overflow: 'hidden' }}>
+                <img 
+                    src={imageUrl} 
+                    className="card-img-top card-img-fluid" 
+                    alt={name} 
+                />
+            </div>
+
+            {/* 2. Card Body */}
+            <div className="card-body d-flex flex-column">
+                
+                {/* Room Title and Badge */}
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                    <h5 className="card-title text-tropical-primary fw-bold mb-0">{name}</h5>
+                    <span className={`badge ${roomType === 'Luxury' ? 'bg-primary' : 'bg-secondary'} text-white`}>
+                        {roomType}
+                    </span>
+                </div>
+
+                {/* Description */}
+                <p className="card-text flex-grow-1 text-muted small">{description}</p>
+                
+                {/* Horizontal Divider */}
+                <hr className="my-2" />
+
+                {/* Pricing and Details Section */}
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    
+                    {/* Price Tag */}
+                    <div className="d-flex align-items-center text-success fw-bold me-3">
+                        <BiDollarCircle className="me-1" size={20} />
+                        <span className="fs-5">${price.toFixed(2)}</span>
+                        <span className="ms-1 small text-muted">/ night</span>
+                    </div>
+
+                    {/* Guests Count and Bed Count */}
+                    <div className="d-flex flex-grow-1 justify-content-end align-items-center text-tropical-dark small">
+                        {/* NEW: Bed Count Detail */}
+                        <div className='d-flex align-items-center me-3'>
+                            <BiBed className="me-1" size={18} />
+                            <span>Beds: {bedCount}</span>
+                        </div>
+                        {/* Original Guests Count */}
+                        <div className='d-flex align-items-center'>
+                            <BiUser className="me-1" size={18} />
+                            <span>Guests: {maxGuests}</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                {/* Call to Action Button (FIXED: The icon is now correctly imported) */}
+                <Link 
+                    to={`/rooms/${name.toLowerCase().replace(/\s/g, '-')}`} 
+                    className="btn btn-warning fw-bold mt-auto"
+                >
+                    <BiCalendarCheck className="me-2" /> View & Book
+                </Link>
+
+            </div>
         </div>
-        <div className="card-footer bg-white border-top-0 pt-0">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <span className="h4 mb-0 text-tropical-primary">
-              ${price.toFixed(2)} 
-              <small className="text-muted font-weight-normal">/ night</small>
-            </span>
-            <span className="text-muted">
-              Guests: <span className="font-weight-bold">{maxGuests}</span>
-            </span>
-          </div>
-          <a href="/rooms/details" className="btn btn-primary btn-block">
-            View Details & Book
-          </a>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default RoomCard;

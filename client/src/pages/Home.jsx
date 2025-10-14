@@ -5,8 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 // Import Components
 import PromotionalBanner from '../components/PromotionalBanner'; 
-import RoomCard from '../components/RoomCard';                     
-
+import RoomCard from '../components/RoomCard'; 
+import ReviewCard from '../components/ReviewCard'; // 🌟 NEW: Import the ReviewCard component
+ 
 // Import Icons (Requires: npm install react-icons)
 import { GiHotMeal, GiPillow, GiWaterfall } from 'react-icons/gi';
 import { BiWorld, BiCalendarCheck, BiStar } from 'react-icons/bi';
@@ -18,7 +19,12 @@ import heroImage from '../assets/welcome-cottage.jpg';
 import aboutImage from '../assets/umbrella-pool.jpg'; 
 import diningImage from '../assets/private-spaces.jpg'; 
 
-// NOTE: mockRooms array is removed, data will now be fetched from the backend
+// 🌟 NEW: Dummy data for the Review Cards section
+const dummyReviews = [
+    { id: 1, reviewerName: "A. Johnson", date: "2025-09-15", rating: 5.0, comment: "Absolutely stunning! The staff and amenities were top-tier. Pure luxury and pure relaxation." },
+    { id: 2, reviewerName: "B. Smith", date: "2025-09-20", rating: 4.5, comment: "A serene escape. Minor issue with the Wi-Fi in the cafe, but overall excellent service and beautiful views." },
+    { id: 3, reviewerName: "C. Patel", date: "2025-10-01", rating: 5.0, comment: "The food was exquisite, and the ocean-view balcony was breathtaking. I highly recommend the Grand Suite." },
+];
 
 
 const Home = () => {
@@ -58,17 +64,19 @@ const Home = () => {
     const renderRoomContent = () => {
         if (loading) {
             return (
+                // Wrapped content in a column div for proper Bootstrap row layout
                 <div className="col-12 text-center my-5">
                     <div className="spinner-border text-primary" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
                     <p className="mt-2 text-muted">Loading featured rooms from the server...</p>
-            </div>
+                </div>
             );
         }
 
         if (error) {
             return (
+                // Wrapped content in a column div for proper Bootstrap row layout
                 <div className="col-12 text-center alert alert-danger my-5" role="alert">
                     {error}
                 </div>
@@ -77,6 +85,7 @@ const Home = () => {
 
         if (rooms.length === 0) {
             return (
+                // Wrapped content in a column div for proper Bootstrap row layout
                 <div className="col-12 text-center alert alert-info my-5" role="alert">
                     No featured rooms found.
                 </div>
@@ -84,16 +93,18 @@ const Home = () => {
         }
 
         // If data is ready, map over the rooms
+        // This ensures that each RoomCard occupies 1/3 of the row on medium/large screens.
         return rooms.map(room => (
-            <RoomCard 
-                key={room.id}
-                name={room.name}
-                description={room.description}
-                // Use the image URL provided by the mock data (which are external Unsplash links)
-                imageUrl={room.imageUrl.startsWith('http') ? room.imageUrl : "https://source.unsplash.com/random/600x400/?room"} 
-                price={room.price}
-                maxGuests={room.maxGuests}
-            />
+            <div key={room.id} className="col-lg-4 col-md-6 mb-4"> 
+                <RoomCard 
+                    name={room.name}
+                    description={room.description}
+                    // Use the image URL provided by the mock data (which are external Unsplash links)
+                    imageUrl={room.imageUrl.startsWith('http') ? room.imageUrl : "https://source.unsplash.com/random/600x400/?room"} 
+                    price={room.price}
+                    maxGuests={room.maxGuests}
+                />
+            </div>
         ));
     };
 
@@ -125,7 +136,8 @@ const Home = () => {
             {/* 3. FEATURED ROOMS SECTION */}
             <section className="container my-5 py-3">
                 <h2 className="text-center mb-5 display-4 text-tropical-dark">Featured Accommodations</h2>
-                <div className="row">
+                {/* FIX: Using row-cols-1 row-cols-md-3 g-4 for responsive grid layout */}
+                <div className="row row-cols-1 row-cols-md-3 g-4"> 
                     {/* Render content based on loading/error state */}
                     {renderRoomContent()} 
                 </div>
@@ -138,7 +150,7 @@ const Home = () => {
             
             <hr className="container" />
 
-            {/* 4. ABOUT US SECTION (Image and Text) - REMAINDER OF THE PAGE */}
+            {/* 4. ABOUT US SECTION (Image and Text) */}
             <section className="container my-5 py-5">
                 <div className="row align-items-center">
                     <div className="col-lg-6 mb-4 mb-lg-0">
@@ -163,61 +175,67 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* 5. SERVICES & AMENITIES SECTION (Expanded) */}
+            {/* 5. SERVICES & AMENITIES SECTION (Expanded & FIXED) */}
             <section className="bg-light py-5 text-center">
                 <div className="container">
                     <h2 className="mb-4 display-4 text-tropical-dark">Indulge in Our Amenities</h2>
                     <p className="lead text-muted mb-5">Everything you need for the perfect tropical vacation.</p>
                     
-                    <div className="row">
-                        {/* Amenities content remains the same... */}
-                        <div className="col-md-4 mb-4">
-                            <div className="p-4 border rounded shadow-sm tropical-card">
+                    {/* FIX: Use Bootstrap row-cols utility for responsive grid and g-4 for spacing */}
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        {/* Amenity 1: Infinity Pool */}
+                        <div className="col">
+                            <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <GiWaterfall className="display-4 text-info mb-3" />
                                 <h5 className="fw-bold">Infinity Pool</h5>
                                 <p>Dive into our stunning infinity pool overlooking the ocean, reserved just for guests.</p>
                             </div>
                         </div>
-                        <div className="col-md-4 mb-4">
-                            <div className="p-4 border rounded shadow-sm tropical-card">
+                        {/* Amenity 2: Beachfront Bar */}
+                        <div className="col">
+                            <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <FaCocktail className="display-4 text-warning mb-3" />
                                 <h5 className="fw-bold">Beachfront Bar</h5>
-                                <p>Sip on exotic cocktails at sunset, prepared by our award-winning mixologists.</p>
+                                <p>Enjoy fresh, hand-crafted cocktails right on the sand with a perfect sunset view.</p>
                             </div>
                         </div>
-                        <div className="col-md-4 mb-4">
-                            <div className="p-4 border rounded shadow-sm tropical-card">
+                        {/* Amenity 3: Spa & Wellness */}
+                        <div className="col">
+                            <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <FaSpa className="display-4 text-danger mb-3" />
                                 <h5 className="fw-bold">Spa & Wellness</h5>
-                                <p>Rejuvenate with traditional island massages and custom therapeutic treatments.</p>
+                                <p>Relax and rejuvenate with our signature massage and holistic treatment packages.</p>
                             </div>
                         </div>
-                        <div className="col-md-4 mb-4">
-                            <div className="p-4 border rounded shadow-sm tropical-card">
+                        {/* Amenity 4: Gourmet Dining */}
+                        <div className="col">
+                            <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <GiHotMeal className="display-4 text-success mb-3" />
                                 <h5 className="fw-bold">Gourmet Dining</h5>
-                                <p>Experience world-class cuisine with fresh, locally sourced ingredients.</p>
+                                <p>Savor Michelin-star inspired cuisine at our main restaurant with stunning views.</p>
                             </div>
                         </div>
-                        <div className="col-md-4 mb-4">
-                            <div className="p-4 border rounded shadow-sm tropical-card">
+                        {/* Amenity 5: Pillow Service (FIXED: Added text content) */}
+                        <div className="col">
+                            <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <GiPillow className="display-4 text-primary mb-3" />
-                                <h5 className="fw-bold">24/7 Concierge</h5>
-                                <p>Our dedicated team is always ready to assist with excursions and requests.</p>
+                                <h5 className="fw-bold">Premium Bedding</h5>
+                                <p>Experience ultimate comfort with our plush pillow menu and high-thread-count linens.</p>
                             </div>
                         </div>
-                        <div className="col-md-4 mb-4">
-                            <div className="p-4 border rounded shadow-sm tropical-card">
+                        {/* Amenity 6: Free Wi-Fi (FIXED: Added text content) */}
+                        <div className="col">
+                            <div className="p-4 border rounded shadow-sm tropical-card amenity-card-body">
                                 <FaWifi className="display-4 text-info mb-3" /> 
                                 <h5 className="fw-bold">Free High-Speed Wi-Fi</h5>
-                                <p>Stay connected with fast internet access across the entire property.</p>
+                                <p>Stay connected with blazing-fast internet available throughout the entire resort.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* 6. GUEST TESTIMONIALS SECTION */}
+            {/* 6. GUEST TESTIMONIALS SECTION (STATIC) */}
             <section 
                 className="py-5 text-white testimonial-section"
                 style={{
@@ -239,6 +257,25 @@ const Home = () => {
                             Plan Your Stay
                         </Link>
                     </div>
+                </div>
+            </section>
+
+            {/* 6.5. DYNAMIC GUEST REVIEWS SECTION (NEW) */}
+            <section className="container my-5 py-3">
+                <h2 className="text-center mb-5 display-4 text-tropical-dark">More Guest Experiences</h2>
+                {/* This uses the correct responsive grid: 1 col on small, 3 on medium+ */}
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                    {/* Map over the dummy review data and render the ReviewCard */}
+                    {dummyReviews.map(review => (
+                        <div key={review.id} className="col">
+                            <ReviewCard review={review} />
+                        </div>
+                    ))}
+                </div>
+                <div className="text-center mt-5">
+                    <Link to="/gallery" className="btn btn-primary btn-lg fw-bold">
+                        Read All 500+ Reviews <BiStar className="ms-2" />
+                    </Link>
                 </div>
             </section>
             
