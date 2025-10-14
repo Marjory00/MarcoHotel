@@ -7,6 +7,9 @@
 /npm-debug.log
 .DS_Store
 
+/node_modules
+MarcoHotel/client/node_modules
+MarcoHotel/backend/node_modules
 # --------------------------
 # 2. Frontend (client) ignores (React/Vite)
 # --------------------------
