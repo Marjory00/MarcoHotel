@@ -1,0 +1,36 @@
+/* MarcoHotel/client/src/pages/Home.css */
+
+/* Hero Section Styles */
+.home-hero {
+    /* Static styles moved from JSX */
+    background-size: cover;
+    background-position: center;
+    min-height: 80vh; 
+    width: 100%;
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    border-radius: 10px;
+}
+
+/* About Section Image Styling */
+.about-img {
+    object-fit: cover;
+    max-height: 400px;
+    width: 100%;
+}
+
+/* Testimonials Section Styles (Parallax Background) */
+.testimonial-section {
+    background-attachment: fixed; /* Creates the Parallax effect */
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+}
+
+.testimonial-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 50px 0;
+}

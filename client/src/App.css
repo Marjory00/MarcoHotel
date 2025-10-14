@@ -1,0 +1,375 @@
+/* MarcoHotel/client/src/App.css */
+
+/* ------------------------------------------------------------------
+    1. GLOBAL VARIABLES & UTILITIES 🎨
+    ------------------------------------------------------------------ */
+
+:root {
+    /* Colors */
+    --tropical-primary: #00796b; /* Dark Teal/Green */
+    --tropical-secondary: #ffb300; /* Amber/Gold */
+    --tropical-light: #e0f2f1; /* Light mint/aqua */
+    --tropical-dark: #37474f; /* Dark Slate */
+    
+    /* Fonts (Loaded via index.html) */
+    --font-serif: 'Playfair Display', serif; 
+    --font-sans: 'Roboto', sans-serif;
+}
+
+/* Color Utilities */
+.text-tropical-primary { color: var(--tropical-primary) !important; }
+.text-tropical-dark { color: var(--tropical-dark) !important; }
+.bg-tropical-light { background-color: var(--tropical-light) !important; }
+.bg-tropical-secondary { background-color: var(--tropical-secondary) !important; }
+
+
+/* ------------------------------------------------------------------
+    2. BASE STYLES & LAYOUT FIXES 📐
+    ------------------------------------------------------------------ */
+
+/* Ensure HTML and Body take up the full viewport height for sticky footer */
+html, body {
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    background-color: var(--tropical-light); 
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: var(--tropical-dark);
+    font-family: var(--font-serif);
+    font-weight: 700;
+}
+
+
+/* ------------------------------------------------------------------
+    3. NAVIGATION & FOOTER
+    ------------------------------------------------------------------ */
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* FIX: Add min-height to accommodate the large 65px logo image */
+    min-height: 80px; 
+}
+.navbar-brand {
+    font-family: var(--font-serif);
+    /* Setting font-size for the text accompanying the image */
+    font-size: 1.8rem;
+    /* Ensure the brand link is centered vertically */
+    display: flex;
+    align-items: center;
+}
+
+/* NEW: Rule to increase the logo image size */
+.navbar-logo-img {
+    /* Using 65px height as requested in the initial comment for this block */
+    height: 65px; 
+    width: auto; /* Ensures image maintains its aspect ratio */
+    display: block; /* Ensures proper alignment within the brand container */
+}
+
+.nav-link {
+    color: var(--tropical-dark) !important;
+    font-weight: 500;
+}
+.nav-link:hover {
+    color: var(--tropical-primary) !important;
+}
+
+.footer {
+    background-color: var(--tropical-dark);
+    color: var(--tropical-light);
+    padding: 30px 0;
+}
+.footer a {
+    color: var(--tropical-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.footer a:hover {
+    color: #fff;
+}
+
+/* Add this to Section 3 in App.css */
+.social-icon {
+    /* Base color is white from utility class, but transition allows change */
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    /* Highlight color on hover */
+    color: var(--tropical-secondary) !important; 
+}
+
+/* ------------------------------------------------------------------
+    4. HOME PAGE SECTIONS (Hero Centering Fix)
+    ------------------------------------------------------------------ */
+
+/* HERO SECTION - Container for the background image and overlay */
+.hero-section {
+    width: 100%;
+    height: 70vh; 
+    position: relative; 
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    /* CRITICAL FIX: Use flexbox for perfect vertical and horizontal centering */
+    display: flex;
+    align-items: center; /* Vertical Center */
+    justify-content: center; /* Horizontal Center */
+    flex-direction: column;
+    text-align: center; /* Ensure text lines up correctly */
+    padding: 2rem;
+}
+
+.hero-section h1, .hero-section p {
+    color: white; 
+    /* Increased visibility for text shadow/transparent effect */
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+/* TESTIMONIAL SECTION */
+.testimonial-section {
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(55, 71, 79, 0.8); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+
+/* ------------------------------------------------------------------
+    5. COMPONENTS & CARDS
+    ------------------------------------------------------------------ */
+
+/* Custom Card Styling (tropical-card) */
+.tropical-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--tropical-primary) !important;
+    border-radius: 15px !important; 
+    background-color: white; 
+}
+.tropical-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Card Image Borders */
+.card-img-top {
+    border-top-left-radius: calc(15px - 1px);
+    border-top-right-radius: calc(15px - 1px);
+}
+
+/* Button Overrides */
+.btn-primary {
+    background-color: var(--tropical-primary) !important;
+    border-color: var(--tropical-primary) !important;
+    font-weight: 500;
+}
+.btn-warning {
+    background-color: var(--tropical-secondary) !important;
+    border-color: var(--tropical-secondary) !important;
+    color: var(--tropical-dark) !important; 
+    font-weight: 700 !important;
+}
+.btn-success {
+    background-color: #4caf50 !important;
+    border-color: #4caf50 !important;
+}
+
+/* ------------------------------------------------------------------
+    6. AI CHAT WINDOW STYLES (SHARED) 💬
+    ------------------------------------------------------------------ */
+
+/* Button Color Mapping for Chat Component */
+/* Note: The floating button uses tropical-secondary for high contrast, handled in Section 7 */
+.btn-tropical-primary {
+    background-color: var(--tropical-primary);
+    border-color: var(--tropical-primary);
+    color: white;
+    font-weight: 500;
+}
+.btn-tropical-primary:hover {
+    background-color: #004d40; /* Slightly darker shade of primary on hover */
+    border-color: #004d40;
+}
+
+/* Chat Bubble Backgrounds */
+.bg-tropical-dark {
+    background-color: var(--tropical-dark) !important;
+}
+.bg-tropical-primary {
+    /* Use the primary color for the user's message bubbles */
+    background-color: var(--tropical-primary) !important;
+    color: white !important;
+}
+
+/* Typing Indicator Animation (Section 6 continued) */
+.typing-indicator {
+    width: auto;
+    max-width: fit-content;
+    display: flex;
+    gap: 0.2rem;
+}
+
+.typing-indicator .dot {
+    opacity: 0;
+    animation: typing-dots 1.5s infinite;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes typing-dots {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+}
+
+
+/* ------------------------------------------------------------------
+    7. FLOATING CHAT POSITIONING (FIXED AND ENHANCED) 📌
+    ------------------------------------------------------------------ */
+
+/* Main container for fixed positioning */
+.ai-chat-container {
+    position: fixed;
+    /* Increased spacing for prominence */
+    bottom: 40px; 
+    right: 40px;
+    z-index: 1050; 
+}
+
+/* 7.1. Chat Toggle Button - ENHANCED VISIBILITY */
+.chat-toggle-button {
+    /* Use the bright secondary color */
+    background-color: var(--tropical-secondary) !important; 
+    border-color: var(--tropical-secondary) !important;
+    color: var(--tropical-dark) !important; /* Dark icon for contrast */
+    
+    width: 65px; /* Slightly larger button */
+    height: 65px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Stronger shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(255, 179, 0, 0.7); 
+    
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease, background-color 0.2s ease, animation 2s infinite;
+    
+    /* Apply subtle pulse animation */
+    animation: pulse-chat 2s infinite;
+}
+
+/* Button Hover State */
+.chat-toggle-button:hover {
+    transform: scale(1.05);
+    background-color: #ffc107 !important; /* Lighter shade of amber */
+    animation: none; /* Stop pulsing on hover */
+}
+
+/* Pulse Animation Keyframes */
+@keyframes pulse-chat {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 179, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 179, 0, 0);
+    }
+}
+
+
+/* 7.2. Full Chat Window */
+.ai-chat-window {
+    width: 350px; 
+    height: 450px; 
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex; 
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    border: none; 
+    border-radius: 10px;
+}
+
+/* Closed state */
+.ai-chat-window.closed {
+    transform: translateY(100%) scale(0.5); 
+    opacity: 0;
+    pointer-events: none; 
+}
+
+/* Open state */
+.ai-chat-window.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+/* Custom button styling for the close 'X' */
+.btn-close-chat {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0;
+}
+.btn-close-chat:hover {
+    color: var(--tropical-secondary);
+}
+
+/* Ensure the message area scrolls */
+.chat-messages-area {
+    overflow-y: auto;
+}
+
+/* Style for Featured Questions button */
+.featured-questions-box .btn-outline-secondary {
+    color: var(--tropical-dark);
+    border-color: var(--tropical-primary);
+    transition: background-color 0.2s;
+}
+.featured-questions-box .btn-outline-secondary:hover {
+    background-color: var(--tropical-primary);
+    color: white;
+}
