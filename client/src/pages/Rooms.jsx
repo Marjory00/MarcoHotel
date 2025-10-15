@@ -126,19 +126,17 @@ const Rooms = () => {
     return (
         <div className="rooms-page">
             
-            {/* 🛠️ FIX: Using the new rooms-hero-section/rooms-hero-overlay classes */}
+            {/* 🛠️ Hero Banner Section */}
             <div 
                 className="rooms-hero-section" 
                 style={{
                     backgroundImage: 'url(https://images.unsplash.com/photo-1540196884845-d8677c77f0a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&h=400&q=80)',
                 }}
             >
-                {/* This overlay handles the dark brand-blue background and centering (styles defined in App.css) */}
                 <div className="rooms-hero-overlay">
                     
                     <div className="container text-center">
                         
-                        {/* Title text color and styling is now controlled by .rooms-hero-overlay h1 in App.css */}
                         <h1 className="fw-bolder mb-3" 
                             style={{ 
                                 fontFamily: 'var(--font-serif)' 
@@ -146,7 +144,6 @@ const Rooms = () => {
                             Your Tropical Escape Awaits
                         </h1>
                         
-                        {/* Subtitle text color and styling is now controlled by .rooms-hero-overlay p in App.css */}
                         <p className="lead fw-bold">
                             Find the perfect room to start your dream vacation at MarcoHotel.
                         </p>
@@ -227,9 +224,11 @@ const Rooms = () => {
                     <p className="lead mb-4 text-secondary">
                         Contact our concierge service for personalized recommendations or check out our full amenities list.
                     </p>
-                    <Link to="/contact" className="btn btn-primary me-3 fw-bold">
+                    {/* 🌟 FIX APPLIED: Changed to btn-warning to use Amber/Gold color 🌟 */}
+                    <Link to="/contact" className="btn btn-warning me-3 fw-bold">
                         Contact Us
                     </Link>
+                    {/* The "View Hotel Amenities" button is correctly using the custom btn-outline-secondary style */}
                     <Link to="/amenities" className="btn btn-outline-secondary fw-bold">
                         View Hotel Amenities
                     </Link>

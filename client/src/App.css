@@ -216,7 +216,7 @@ h1, h2, h3, h4 {
 
 
 /* ------------------------------------------------------------------
-    5. COMPONENTS & CARDS
+    5. COMPONENTS & CARDS (FIXED BUTTON COLORS)
     ------------------------------------------------------------------ */
 
 /* Custom Card Styling (tropical-card) */
@@ -255,7 +255,7 @@ h1, h2, h3, h4 {
     padding: 1.5rem; 
 }
 
-/* Button Overrides */
+/* Button Overrides (Solid Buttons) */
 .btn-primary {
     background-color: var(--tropical-primary) !important;
     border-color: var(--tropical-primary) !important;
@@ -271,6 +271,21 @@ h1, h2, h3, h4 {
 .btn-success {
     background-color: #4caf50 !important;
     border-color: #4caf50 !important;
+}
+
+/* 🌟 FIX: Styling the btn-outline-secondary to use tropical-primary color 🌟 */
+/* This fixes the "View Hotel Amenities" button color */
+.btn-outline-secondary {
+    color: var(--tropical-primary) !important; /* Text color is Deep Blue */
+    border-color: var(--tropical-primary) !important; /* Border color is Deep Blue */
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--tropical-primary) !important; /* Background becomes Deep Blue */
+    color: var(--tropical-secondary) !important; /* Text flips to Amber/Gold */
+    border-color: var(--tropical-primary) !important; /* Keep border for consistency */
 }
 
 /* ------------------------------------------------------------------
@@ -422,15 +437,16 @@ h1, h2, h3, h4 {
     overflow-y: auto;
 }
 
-/* Style for Featured Questions button */
+/* Style for Featured Questions button (Using the global fix from section 5) */
 .featured-questions-box .btn-outline-secondary {
-    color: var(--tropical-dark);
+    /* Inherits the custom color for primary blue border/text and amber hover */
+    color: var(--tropical-primary);
     border-color: var(--tropical-primary);
     transition: background-color 0.2s;
 }
 .featured-questions-box .btn-outline-secondary:hover {
     background-color: var(--tropical-primary);
-    color: white;
+    color: var(--tropical-secondary);
 }
 
 
