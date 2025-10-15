@@ -6,14 +6,12 @@
 
 :root {
     /* Colors */
-    /* *** CHANGE: Set tropical-primary to Deep Blue (#1a4d80) *** */
     --tropical-primary: #1a4d80; /* Deep Blue - Used for primary buttons & titles */
     --tropical-secondary: #ffb300; /* Amber/Gold */
-    /* *** USER REQUEST: Changed tropical-light from #e0f2f1 to #f5f7f9 *** */
     --tropical-light: #f5f7f9; /* Very Light Gray/Off-White */
     --tropical-dark: #37474f; /* Dark Slate */
     
-    /* NEW: Promotional Banner Colors (Used for contrast/call-to-action) */
+    /* Promotional Banner Colors (Used for contrast/call-to-action) */
     --promo-background: #1a4d80; /* Deep Blue - Elegant Hotel Color (Matching new primary) */
     --promo-highlight: #ff6347; /* Tomato Red - Bright, attractive discount color */
 
@@ -43,7 +41,6 @@ html, body {
 body {
     font-family: var(--font-sans);
     font-weight: 400;
-    /* This will now use the new #f5f7f9 color */
     background-color: var(--tropical-light); 
 }
 
@@ -62,24 +59,20 @@ h1, h2, h3, h4 {
 .navbar {
     background-color: rgba(255, 255, 255, 0.98) !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* FIX: Add min-height to accommodate the large 65px logo image */
     min-height: 80px; 
 }
 .navbar-brand {
     font-family: var(--font-serif);
-    /* Setting font-size for the text accompanying the image */
     font-size: 1.8rem;
-    /* Ensure the brand link is centered vertically */
     display: flex;
     align-items: center;
 }
 
 /* NEW: Rule to increase the logo image size */
 .navbar-logo-img {
-    /* Using 65px height as requested in the initial comment for this block */
     height: 65px; 
-    width: auto; /* Ensures image maintains its aspect ratio */
-    display: block; /* Ensures proper alignment within the brand container */
+    width: auto; 
+    display: block; 
 }
 
 .nav-link {
@@ -92,7 +85,6 @@ h1, h2, h3, h4 {
 
 .footer {
     background-color: var(--tropical-dark);
-    /* This will now use the new #f5f7f9 color for footer text */
     color: var(--tropical-light);
     padding: 30px 0;
 }
@@ -107,20 +99,18 @@ h1, h2, h3, h4 {
 
 /* Add this to Section 3 in App.css */
 .social-icon {
-    /* Base color is white from utility class, but transition allows change */
     transition: color 0.3s ease;
 }
 
 .social-icon:hover {
-    /* Highlight color on hover */
     color: var(--tropical-secondary) !important; 
 }
 
 /* ------------------------------------------------------------------
-    4. HOME PAGE SECTIONS (Hero Centering Fix)
+    4. HOME PAGE SECTIONS & ROOMS PAGE HERO STYLES (UPDATED) 🎨
     ------------------------------------------------------------------ */
 
-/* HERO SECTION - Container for the background image and overlay */
+/* HERO SECTION - Container for the background image and overlay (Home Page Default) */
 .hero-section {
     width: 100%;
     height: 70vh; 
@@ -145,9 +135,57 @@ h1, h2, h3, h4 {
     padding: 2rem;
 }
 
+/* --- NEW: Specific Styles for Rooms Page Hero Banner --- */
+
+/* Rooms Page specific container to override height and image/color */
+.rooms-hero-section {
+    position: relative;
+    width: 100%;
+    height: 45vh; /* Taller banner for impact */
+    background-size: cover;
+    background-position: center;
+    background-color: var(--tropical-dark); /* Fallback */
+    margin-bottom: 3rem;
+}
+
+/* FIX: Rooms Page specific overlay - Use dark primary blue for the background */
+.rooms-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Darker, brand-specific blue overlay (tropical-primary blue with 80% opacity) */
+    background-color: rgba(26, 77, 128, 0.85); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+/* FIX: Styling for the main title within the Rooms hero section */
+.rooms-hero-overlay h1 {
+    color: white; /* Ensure visibility */
+    font-size: 3.8rem; 
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+}
+
+/* FIX: Styling for the subtitle within the Rooms hero section */
+.rooms-hero-overlay p {
+    color: var(--tropical-light); /* Off-white for subtitle */
+    font-size: 1.6rem; 
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    margin-top: 5px;
+}
+
+
+/* General Hero Text Styles (Home & others using .hero-section) */
 .hero-section h1, .hero-section p {
     color: white; 
-    /* Increased visibility for text shadow/transparent effect */
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
@@ -203,8 +241,8 @@ h1, h2, h3, h4 {
 /* Fixes narrow accommodation card images and ensures amenity icons/images scale */
 .card-img-fluid {
     width: 100%;
-    height: 100%; /* Important for equal height in amenity sections */
-    object-fit: cover; /* Ensures image covers the area without distortion */
+    height: 100%; 
+    object-fit: cover; 
     display: block;
 }
 
@@ -214,14 +252,14 @@ h1, h2, h3, h4 {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 1.5rem; /* Good padding for better spacing */
+    padding: 1.5rem; 
 }
 
 /* Button Overrides */
 .btn-primary {
-    /* Updated button color to new primary variable */
     background-color: var(--tropical-primary) !important;
     border-color: var(--tropical-primary) !important;
+    color: white !important;
     font-weight: 500;
 }
 .btn-warning {
@@ -247,7 +285,6 @@ h1, h2, h3, h4 {
     font-weight: 500;
 }
 .btn-tropical-primary:hover {
-    /* Updated hover color to a slightly darker shade of new primary */
     background-color: #12375e; 
     border-color: #12375e;
 }
@@ -257,7 +294,6 @@ h1, h2, h3, h4 {
     background-color: var(--tropical-dark) !important;
 }
 .bg-tropical-primary {
-    /* Use the primary color for the user's message bubbles (now blue) */
     background-color: var(--tropical-primary) !important;
     color: white !important;
 }
@@ -298,7 +334,6 @@ h1, h2, h3, h4 {
 /* Main container for fixed positioning */
 .ai-chat-container {
     position: fixed;
-    /* Increased spacing for prominence */
     bottom: 40px; 
     right: 40px;
     z-index: 1050; 
@@ -306,37 +341,34 @@ h1, h2, h3, h4 {
 
 /* 7.1. Chat Toggle Button - ENHANCED VISIBILITY */
 .chat-toggle-button {
-    /* Use the bright secondary color */
     background-color: var(--tropical-secondary) !important; 
     border-color: var(--tropical-secondary) !important;
-    color: var(--tropical-dark) !important; /* Dark icon for contrast */
+    color: var(--tropical-dark) !important; 
     
-    width: 65px; /* Slightly larger button */
+    width: 65px; 
     height: 65px;
     line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Stronger shadow */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(255, 179, 0, 0.7); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
     
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease, background-color 0.2s ease, animation 2s infinite;
     
-    /* Apply subtle pulse animation */
     animation: pulse-chat 2s infinite;
 }
 
 /* Button Hover State */
 .chat-toggle-button:hover {
     transform: scale(1.05);
-    background-color: #ffc107 !important; /* Lighter shade of amber */
-    animation: none; /* Stop pulsing on hover */
+    background-color: #ffc107 !important; 
+    animation: none; 
 }
 
-/* Pulse Animation Keyframes */
+/* Pulse Animation Keyframes - Refined to use secondary color */
 @keyframes pulse-chat {
     0% {
-        box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.5);
+        box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.6); 
     }
     70% {
         box-shadow: 0 0 0 15px rgba(255, 179, 0, 0);
@@ -408,7 +440,6 @@ h1, h2, h3, h4 {
 
 /* Container for the entire banner component */
 .promotional-banner {
-    /* Using a deep, elegant blue for the background */
     background-color: var(--promo-background); 
     color: white;
     padding: 30px 40px;
@@ -429,7 +460,7 @@ h1, h2, h3, h4 {
 /* The "LIMITED TIME OFFER!" tag */
 .banner-tag {
     display: inline-block;
-    background-color: var(--tropical-secondary); /* Gold/Amber for a premium highlight */
+    background-color: var(--tropical-secondary); 
     color: var(--tropical-dark);
     padding: 6px 15px;
     border-radius: 20px;
@@ -446,7 +477,7 @@ h1, h2, h3, h4 {
     margin: 0;
     font-weight: 700;
     line-height: 1.1;
-    color: white; /* Ensure headline color contrasts with dark background */
+    color: white; 
 }
 
 /* The descriptive text */
@@ -457,7 +488,7 @@ h1, h2, h3, h4 {
 
 /* Highlight for the discount percentage */
 .discount {
-    color: var(--promo-highlight); /* Tomato Red for attractive savings */
+    color: var(--promo-highlight); 
     font-size: 1.1em;
     font-weight: 900;
 }
@@ -477,7 +508,7 @@ h1, h2, h3, h4 {
 }
 
 .banner-button:hover {
-    background-color: #e05c3d; /* Slightly darker hover state */
+    background-color: #e05c3d; 
     border-color: #e05c3d;
 }
 
@@ -487,19 +518,17 @@ h1, h2, h3, h4 {
 
 /* Container that centers the form and gives it a max-width */
 .auth-form-container {
-    max-width: 500px; /* Standard width for a central form */
-    margin: 0 auto; /* Center the form horizontally */
+    max-width: 500px; 
+    margin: 0 auto; 
     padding: 30px;
-    background-color: #ffffff; /* White background for the form card */
+    background-color: #ffffff; 
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* The subtle border color will now use the new #f5f7f9 color */
     border: 1px solid var(--tropical-light); 
 }
 
 .auth-form-container h2 {
     font-size: 2.2rem;
-    /* Changed title color to new primary variable (Deep Blue) */
     color: var(--tropical-primary); 
     margin-bottom: 25px;
     text-align: center;
@@ -516,7 +545,7 @@ h1, h2, h3, h4 {
 
 .auth-form-container .form-control:focus {
     border-color: var(--tropical-secondary);
-    box-shadow: 0 0 0 0.25rem rgba(255, 179, 0, 0.25); /* Yellow/Amber focus ring */
+    box-shadow: 0 0 0 0.25rem rgba(255, 179, 0, 0.25); 
 }
 
 /* Spacing between form groups */
@@ -526,17 +555,16 @@ h1, h2, h3, h4 {
 
 /* Submit button specific style (uses btn-primary override from section 5) */
 .auth-form-container .btn-primary {
-    width: 100%; /* Full width button */
+    width: 100%; 
     padding: 12px;
     font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    margin-top: 10px; /* Space above the button */
+    margin-top: 10px; 
 }
 
 /* Link for switching between login/register */
 .auth-form-container .auth-switch-link {
-    /* Changed link color to new primary variable (Deep Blue) */
     color: var(--tropical-primary);
     font-weight: 500;
     text-decoration: none;

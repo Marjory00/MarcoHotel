@@ -68,7 +68,8 @@ const FeatureBadge = ({ feature }) => {
     // Determine which icon to use, defaulting to BiExpandAlt if not specified
     const Icon = feature.icon || BiExpandAlt; 
     return (
-        <span className="badge text-dark me-2 mb-1 p-2 small fw-normal" style={{ backgroundColor: '#ffdd77' }}>
+        // Uses the tropical-secondary (Amber/Gold)
+        <span className="badge text-dark me-2 mb-1 p-2 small fw-normal" style={{ backgroundColor: 'var(--tropical-secondary)' }}>
             <Icon className="me-1" style={{ position: 'relative', top: '2px' }}/>
             {feature.text}
         </span>
@@ -125,18 +126,31 @@ const Rooms = () => {
     return (
         <div className="rooms-page">
             
-            {/* 🆕 SECTION 1: HERO BANNER */}
-            <div className="jumbotron jumbotron-fluid text-white text-center py-5 mb-5" 
-                 // ➡️ Updated Hero Image URL to a fixed, stable Unsplash image
-                 style={{ 
-                     backgroundImage: 'url(https://images.unsplash.com/photo-1540196884845-d8677c77f0a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&h=400&q=80)', 
-                     backgroundSize: 'cover', 
-                     backgroundPosition: 'center',
-                     minHeight: '300px'
-                 }}>
-                <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', padding: '20px', borderRadius: '8px' }}>
-                    <h1 className="display-3 fw-bold mb-3">Your Tropical Escape Awaits</h1>
-                    <p className="lead fs-5">Find the perfect room to start your dream vacation at MarcoHotel.</p>
+            {/* 🛠️ FIX: Using the new rooms-hero-section/rooms-hero-overlay classes */}
+            <div 
+                className="rooms-hero-section" 
+                style={{
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1540196884845-d8677c77f0a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&h=400&q=80)',
+                }}
+            >
+                {/* This overlay handles the dark brand-blue background and centering (styles defined in App.css) */}
+                <div className="rooms-hero-overlay">
+                    
+                    <div className="container text-center">
+                        
+                        {/* Title text color and styling is now controlled by .rooms-hero-overlay h1 in App.css */}
+                        <h1 className="fw-bolder mb-3" 
+                            style={{ 
+                                fontFamily: 'var(--font-serif)' 
+                            }}>
+                            Your Tropical Escape Awaits
+                        </h1>
+                        
+                        {/* Subtitle text color and styling is now controlled by .rooms-hero-overlay p in App.css */}
+                        <p className="lead fw-bold">
+                            Find the perfect room to start your dream vacation at MarcoHotel.
+                        </p>
+                    </div>
                 </div>
             </div>
             {/* --- END HERO BANNER --- */}
@@ -164,11 +178,9 @@ const Rooms = () => {
                                         className="card-img-top" 
                                         alt={room.name} 
                                         style={{ height: '220px', objectFit: 'cover' }} 
-                                        // The 'crossOrigin' attribute is often unnecessary for static image URLs
-                                        // and can sometimes cause issues, so we'll remove it for maximum compatibility.
-                                        // crossOrigin="anonymous" 
                                     />
                                     <div className="card-body d-flex flex-column">
+                                        {/* Name uses the primary color (Deep Blue) */}
                                         <h5 className="card-title fw-bold text-tropical-primary mb-2">{room.name}</h5>
                                         
                                         {/* Room Specs (Size) */}
@@ -209,13 +221,13 @@ const Rooms = () => {
 
             {/* 🆕 SECTION 2: EXPLORE MORE / CTA */}
             <div className="container mt-5 pt-5 pb-5">
-                <div className="p-4 text-center" style={{ backgroundColor: '#f0f8ff', borderRadius: '10px' }}>
+                <div className="p-4 text-center" style={{ backgroundColor: 'var(--tropical-light)', borderRadius: '10px' }}>
                     <BiInfoCircle size={40} className="text-tropical-primary mb-3" />
                     <h3 className="mb-3 text-tropical-dark">Need Help Choosing?</h3>
                     <p className="lead mb-4 text-secondary">
                         Contact our concierge service for personalized recommendations or check out our full amenities list.
                     </p>
-                    <Link to="/contact" className="btn btn-outline-primary me-3 fw-bold">
+                    <Link to="/contact" className="btn btn-primary me-3 fw-bold">
                         Contact Us
                     </Link>
                     <Link to="/amenities" className="btn btn-outline-secondary fw-bold">
