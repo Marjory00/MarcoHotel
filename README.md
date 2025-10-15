@@ -4,11 +4,6 @@
 **Author:** Marjory D. Marquez
 
 ---
-### Notice:
-Some part of the project files have been intentionally omitted for copyright purposes. This project is part of one of my portfolio projects.
-
-
----
 
 ## Table of Contents
 
@@ -121,3 +116,8 @@ If you are evaluating this project for your business or personal use, here are t
 * **Booking Placeholder:** 
 
 ---
+
+---
+### Notice:
+Some part of the project files have been intentionally omitted for copyright purposes. This project is part of one of my portfolio projects.
+
